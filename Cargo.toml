@@ -1,8 +1,16 @@
 [package]
 name = "learn-rust-tool-chapter-12"
 version = "0.1.0"
+authors = ["epilif3sotnas"]
 edition = "2021"
+description = "Learn Rust with Rust book - tool from chapter 12."
+readme = "README.md"
+repository = "https://github.com/epilif3sotnas/learn-rust-tool-chapter-12"
+license = "Apache-2.0"
+keywords = ["learning", "Rust", "Book", "CLI"]
+publish = false
 
-# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
-[dependencies]
+[[bin]]
+name = "learn-rust-tool-chapter-12"
+path = "src/main.rs"
