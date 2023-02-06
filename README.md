@@ -14,7 +14,7 @@ Commands to run the project:
 
 ```
 cd {PATH_REPOSITORY};
-cargo run [filename] [text_to_search];
+cargo run {filename} {text_to_search};
 ```
 
 
