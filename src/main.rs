@@ -20,7 +20,7 @@ fn get_args () -> Vec<String> {
 fn get_config (args: Vec<String>) -> HashMap<&'static str, String> {
     let mut config = HashMap::new();
     
-    if args.len() <= 1 {
+    if args.len() <= 2 {
         config.insert("file", String::new());
         config.insert("query", String::new());
         return config;
