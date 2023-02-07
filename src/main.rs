@@ -19,7 +19,7 @@ fn get_args () -> Vec<String> {
 
 fn get_config (args: Vec<String>) -> HashMap<&'static str, String> {
     if args.len() <= 2 {
-        panic!("Must have 2 arguments: cargo run {file_name} {text_to_search}");
+        panic!("Must have 2 arguments: cargo run {{file_name}} {{text_to_search}}");
     }
 
     let mut config = HashMap::new();
