@@ -18,14 +18,11 @@ fn get_args () -> Vec<String> {
 }
 
 fn get_config (args: Vec<String>) -> HashMap<&'static str, String> {
-    let mut config = HashMap::new();
-    
     if args.len() <= 2 {
-        config.insert("file", String::new());
-        config.insert("query", String::new());
-        return config;
+        panic!("Must have 2 arguments: cargo run {file_name} {text_to_search}");
     }
 
+    let mut config = HashMap::new();
     config.insert("file", args[1].clone() + ".txt");
     config.insert("query", args[2].clone());
     return config;
