@@ -11,7 +11,7 @@ fn main () {
     println!("\nArgs: {:?}", args);
 
     let config: HashMap<&str, String> = get_config(args).unwrap_or_else(|err| {
-        println!("Problem: {:?}", err);
+        eprintln!("Problem: {:?}", err);
         exit(1);
     });
     println!("\nConfig content: {:?}", config);
@@ -36,17 +36,17 @@ fn get_config (args: Vec<String>) -> Result<HashMap<&'static str, String>, &'sta
 
 fn run (config: HashMap<&str, String>) {
     let file_content = read_file(config.get("file").unwrap_or_else(|| {
-        println!("File does not exist: {:?}", config);
+        eprintln!("File does not exist: {:?}", config);
         exit(1);
     }));
 
     let query = config.get("query").unwrap_or_else(|| {
-        println!("Query does not exist: {:?}", config);
+        eprintln!("Query does not exist: {:?}", config);
         exit(1);
     });
 
     let lines_containing = search(file_content, query.clone()).unwrap_or_else(|err| {
-        println!("{:?}", err);
+        eprintln!("{:?}", err);
         exit(1);
     });
 
@@ -55,7 +55,7 @@ fn run (config: HashMap<&str, String>) {
 
 fn read_file (path: &String) -> String {
     return read_to_string(path).unwrap_or_else(|err| {
-        println!("Error: {:?}", err);
+        eprintln!("Error: {:?}", err);
         exit(1);
     });
 }
