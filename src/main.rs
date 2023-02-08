@@ -47,3 +47,28 @@ fn read_file (path: &String) -> String {
         exit(1);
     });
 }
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn test_get_config_good_parameters () {
+        let mut expected = HashMap::new();
+        expected.insert("file", String::from("file.txt"));
+        expected.insert("query", String::from("query"));
+
+        let args = vec![String::from("something"), String::from("file"), String::from("query")];
+
+        assert_eq!(Ok(expected), get_config(args));
+    }
+
+    #[test]
+    fn test_get_config_no_parameters () {
+        let mut expected = "Less than 2 arguments, command structure -> cargo run {file_name} {text_to_search}";
+
+        let args = Vec::new();
+
+        assert_eq!(Err(expected), get_config(args));
+    }
+}
