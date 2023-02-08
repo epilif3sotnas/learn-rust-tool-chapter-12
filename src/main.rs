@@ -39,6 +39,18 @@ fn run (config: HashMap<&str, String>) {
         println!("File does not exist: {:?}", config);
         exit(1);
     }));
+
+    let query = config.get("query").unwrap_or_else(|| {
+        println!("Query does not exist: {:?}", config);
+        exit(1);
+    });
+
+    let lines_containing = search(file_content, query.clone()).unwrap_or_else(|err| {
+        println!("{:?}", err);
+        exit(1);
+    });
+
+    println!("Lines containing query {:?}: {:?}", config.get("query").unwrap(), lines_containing);
 }
 
 fn read_file (path: &String) -> String {
@@ -47,6 +59,26 @@ fn read_file (path: &String) -> String {
         exit(1);
     });
 }
+
+fn search (text: String, query: String) -> Result<Vec<String>, &'static str> {
+    if text.trim().is_empty() {
+        return Err("Text with no content");
+    }
+
+    if query.trim().is_empty() {
+        return Err("Query with no content");
+    }
+
+    let mut lines_with_query: Vec<String> = Vec::new();
+
+    for line in text.lines() {
+        if line.contains(&query) {
+            lines_with_query.push(line.to_string());
+        }
+    }
+    return Ok(lines_with_query);
+}
+
 
 #[cfg(test)]
 mod tests {
