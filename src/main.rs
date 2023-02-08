@@ -103,4 +103,64 @@ mod tests {
 
         assert_eq!(Err(expected), get_config(args));
     }
+
+    #[test]
+    fn test_search_no_parameters () {
+        let text = String::new();
+        let query = String::new();
+
+        let reality = search(text, query);
+
+        let expected = Err("Text with no content");
+
+        assert_eq!(reality, expected);
+    }
+
+    #[test]
+    fn test_search_no_query () {
+        let text = String::from("Text");
+        let query = String::new();
+
+        let reality = search(text, query);
+
+        let expected = Err("Query with no content");
+
+        assert_eq!(reality, expected);
+    }
+
+    #[test]
+    fn test_search_no_text () {
+        let text = String::new();
+        let query = String::from("query");
+
+        let reality = search(text, query);
+
+        let expected = Err("Text with no content");
+
+        assert_eq!(reality, expected);
+    }
+
+    #[test]
+    fn test_search_not_contained () {
+        let text = String::from("asd\nawdxa\nasxd\n");
+        let query = String::from("query");
+
+        let reality = search(text, query);
+
+        let expected = Ok(Vec::new());
+
+        assert_eq!(reality, expected);
+    }
+
+    #[test]
+    fn test_search_contained () {
+        let text = String::from("asd\nawdxa\nasxd\n");
+        let query = String::from("asd");
+
+        let reality = search(text, query);
+
+        let expected = Ok(vec![String::from("asd")]);
+
+        assert_eq!(reality, expected);
+    }
 }
