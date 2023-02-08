@@ -15,6 +15,8 @@ fn main () {
         exit(1);
     });
     println!("\nConfig content: {:?}", config);
+
+    run(config);
 }
 
 fn get_args () -> Vec<String> {
@@ -32,6 +34,16 @@ fn get_config (args: Vec<String>) -> Result<HashMap<&'static str, String>, &'sta
     return Ok(config);
 }
 
+fn run (config: HashMap<&str, String>) {
+    let file_content = read_file(config.get("file").unwrap_or_else(|| {
+        println!("File does not exist: {:?}", config);
+        exit(1);
+    }));
+}
+
 fn read_file (path: &String) -> String {
-    return read_to_string(path).expect("Read File Error");
+    return read_to_string(path).unwrap_or_else(|err| {
+        println!("Error: {:?}", err);
+        exit(1);
+    });
 }
